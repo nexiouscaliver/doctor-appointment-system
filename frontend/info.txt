@@ -1,0 +1,10 @@
+Make the script for : frontend home login pages.
+collab : Pranjali , Sundaram
+
+
+Make the script for : all forntend formatting
+collab : Pranjali , Sundaram
+
+
+Make the script for : doc appoint and patient appoint view pages
+collab : nidhi , tarun

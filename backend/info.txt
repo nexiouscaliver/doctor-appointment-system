@@ -1,0 +1,2 @@
+Make the script for : accessing and appointing doc appointments into sqlite3 server.
+collab : Abhishek , Riane

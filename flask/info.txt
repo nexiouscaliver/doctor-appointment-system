@@ -1,0 +1,2 @@
+Make the script for : Main flask server and connect all 
+collab : Shahil kadia
