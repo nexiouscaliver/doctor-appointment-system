@@ -1,6 +1,7 @@
 import sqlite3
 import hashlib
 import logging
+import sys
 
 ###global variables
 dbname = "data.db"      #enter your db name
@@ -10,17 +11,18 @@ logging.basicConfig(level=logging.INFO,filename='db.log',format='%(asctime)s - %
 logging.warning('Server Restarted :: App Started')     #sql logging start
 
 ###SQL server initialization
-print("SQL init started.")
-logging.warning("SQL init started.")
-conn = sqlite3.connect(dbname)
-cur = conn.cursor()
-q1 = "CREATE TABLE IF NOT EXISTS user(id int auto increment , username text primary key, password text)"
-cur.execute(q1)
-cur.close()
-conn.commit()
-conn.close()
-print("SQL init compleated!")
-logging.warning("SQL init compleated!")
+def init_db():
+    print("SQL init started.")
+    logging.warning("SQL init started.")
+    conn = sqlite3.connect(dbname)
+    cur = conn.cursor()
+    q1 = "CREATE TABLE IF NOT EXISTS user(id int auto increment , username text primary key, password text)"
+    cur.execute(q1)
+    cur.close()
+    conn.commit()
+    conn.close()
+    print("SQL init compleated!")
+    logging.warning("SQL init compleated!")
 
 ###sql definations
 def create_user(username:str,password:str,name:str):
@@ -84,3 +86,7 @@ def load_user(username:str,password:str):
         conn.commit()
         conn.close()
         logging.info(f"Connection to DB closed :: User {username} loaded")
+
+
+#init once
+# init_db()

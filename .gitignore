@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# custom
+data.db
+docvenv/
+
 # C extensions
 *.so
 
