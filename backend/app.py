@@ -38,7 +38,3 @@ def appoint():
         return "Appointment made Sucessfully"
     else:
         return render_template("index.html")
-
-
-
-
