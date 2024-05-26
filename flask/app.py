@@ -41,11 +41,34 @@ def home():
 def login():
     return render_template('login.html')
 
-@app.route('/doctor')
-def doctor():
-    return render_template('doctorForm.html')
+@app.route('/doctorappointments')
+def doctorappoint():
+    return render_template('DocSchedule.html')
 
-
+@app.route('/doctorlogin',methods=['GET', 'POST'])
+def doclogin():
+    error = None
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        # print(username,password)
+        if db.load_user(str(username),str(password)):
+            return redirect(url_for('doctorappoint'))
+        else:
+            print("flase")
+            error = "Incorrect password !"
+            # return render_template('login.html')
+    
+        # return render_template('login.html')
+    return render_template('idex-login-final.html',error=error)
+@app.route('/verifydoclogin',methods=['POST'])
+def verifydoc():
+    username = request.form['username']
+    password = request.form['password']
+    if db.load_user(username,password):
+        return redirect(url_for('doctorappoint'))
+    else:
+        return render_template('idex-login-final.html')
 
 #main runtime
 if __name__ == '__main__':

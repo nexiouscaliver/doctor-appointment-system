@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Appointment Scheduling - Login</title>
+  <style>
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e8f0fe; /* Light blue background */
+      display: flex;
+      justify-content: center; /* Center the container horizontally */
+      align-items: center; /* Center the container vertically */
+      height: 100vh; /* Full height */
+      margin: 0; /* Remove default margin */
+      animation: fadeIn 1s ease-in-out; /* Apply fade-in animation */
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.8); /* White with 80% opacity for glassmorphism */
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Increased shadow for depth */
+      display: flex; /* Make container a flexbox */
+      width: 80%; /* Set container width to 80% */
+      max-width: 1200px; /* Max width for large screens */
+      height: 70%; /* Set container height */
+      animation: fadeIn 1s ease-in-out; /* Apply fade-in animation */
+    }
+
+    .photo-frame {
+      width: 50%; /* Set photo frame width to half */
+      background-image: url("login.jpg"); /* Add your image path here */
+      background-size: cover; /* Ensure image fills the frame */
+      background-position: center; /* Center image within frame */
+      border-radius: 5px 0 0 5px; /* Rounded corners for left side */
+    }
+
+    .login-form {
+      width: 50%; /* Set login form width to half */
+      display: flex; /* Arrange form elements in a row */
+      flex-direction: column; /* Stack elements vertically */
+      align-items: center; /* Center form horizontally within container */
+      justify-content: center; /* Center form vertically within container */
+      padding: 30px; /* Padding for the form */
+      text-align: center; /* Center-align text within form */
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      width: 100%; /* Full width for form group */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #243a73; /* Darker blue for labels */
+      text-align: left; /* Align labels to the left */
+      width: 100%; /* Full width for labels */
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc; /* Light gray border */
+      border-radius: 5px; /* Rounded corners */
+      transition: 0.4s ease; /* Smoother transitions */
+    }
+
+    input:focus {
+      outline: none; /* Remove default focus outline */
+      border-color: #243a73; /* Darker blue border on focus */
+    }
+
+    button {
+      width: 100%; /* Full width for button */
+      padding: 10px;
+      border: 1px solid #ccc; /* Light gray border */
+      border-radius: 5px; /* Rounded corners */
+      transition: 0.4s ease; /* Smoother transitions */
+      background-color: #243a73; /* Darker blue for button */
+      color: white;
+      cursor: pointer;
+      margin-top: 10px; /* Space between input and button */
+    }
+
+    button:focus {
+      outline: none; /* Remove default focus outline */
+      border-color: #243a73; /* Darker blue border on focus */
+    }
+
+    button:hover {
+      background-color: #172b5e; /* Even darker blue button hover color */
+    }
+
+    .form-actions {
+      display: flex; /* Arrange buttons and link horizontally */
+      justify-content: center; /* Center align items horizontally */
+      flex-direction: column;
+      align-items: center; /* Center align items vertically */
+      width: 100%; /* Full width for form actions */
+    }
+
+    .link-group {
+      display: flex;
+      justify-content: center; /* Center align the text in the signup link */
+      margin-top: 15px;
+    }
+
+    #login-link, #signup-link {
+      color: #243a73; /* Darker blue for links */
+      text-decoration: none; /* Remove underline */
+      transition: 0.3s ease; /* Smoother hover effect */
+      margin: 0 10px; /* Space between links */
+    }
+
+    #login-link:hover, #signup-link:hover {
+      color: #172b5e; /* Even darker blue on link hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="photo-frame"></div>
+    <div class="login-form">
+      <h1>Doctor Appointment Scheduling - Login</h1>
+      <p>Welcome back! Please log in to access your appointments.</p>
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+          <button type="submit">Login</button>
+        </div>
+        <div class="link-group">
+          <a id="signup-link" href="#">Sign Up</a>
+          <a id="login-link" href="#">Forgot Password?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
