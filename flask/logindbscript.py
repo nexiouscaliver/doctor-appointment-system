@@ -93,6 +93,42 @@ def load_user(username:str,password:str):
         conn.close()
         logging.info(f"Connection to DB closed :: User {username} loaded")
 
+def getname(username:str):
+    conn = sqlite3.connect(dbname)
+    cur = conn.cursor()
+    logging.info(f"Connected to DB :: fetching name {username}")
+    sql = f'select name from user where username="{username}";'
+    try:
+        cur.execute(sql)
+        shpass = cur.fetchall()
+        print(shpass)
+        if shpass == []:
+            print(f"USER User {username} not found")
+            logging.error(f"USER User {username} not found")
+            return False
+        if shpass:
+            print(f"User {username} has correct name {shpass[0][0]}")
+            logging.info(f"User {username} has correct name")
+            return shpass[0][0]
+        else:
+            print(f"USER Incorrect password :: {username}")
+            # logging.log(logging.INFO,f"USER Incorrect password :: {username}")
+            logging.error(f"USER Incorrect password :: {username}")
+            return False
+    except sqlite3.Error as error:
+        print(f"SQL Error occured :: {username} :: {error}")
+        logging.error(f"SQL Error occured :: {username} :: {error}")
+        return False
+    except Exception as e:
+        print(f"PY Error Occured:: {username} :: {e}")
+        logging.error(f"PY Error Occured:: {username} :: {e}", exc_info=True)
+        return False
+    finally:
+        cur.close()
+        conn.commit()
+        conn.close()
+        logging.info(f"Connection to DB closed :: User {username} loaded")
+
 def runquery(q):
     conn = sqlite3.connect(dbname)
     cur = conn.cursor()

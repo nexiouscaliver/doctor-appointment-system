@@ -62,6 +62,8 @@ def doclogin():
         password = request.form['password']
         # print(username,password)
         if db.load_user(str(username),str(password)):
+            name = db.getname(username)
+            session['doctor_name'] = name
             return redirect(url_for('doctorappoint'))
         else:
             print("flase")
