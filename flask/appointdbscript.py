@@ -2,7 +2,7 @@ import sqlite3
 con=sqlite3.connect("appointment.db")
 cur=con.cursor()
 
-def initdb():
+def init_db():
     con=sqlite3.connect("appointment.db")
     cur=con.cursor()
     q="CREATE TABLE IF NOT EXISTS appoint(Appno INTEGER PRIMARY KEY,Doc_Selected varchar(100),Time varchar(10))"

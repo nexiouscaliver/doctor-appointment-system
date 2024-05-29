@@ -39,9 +39,20 @@ def home():
 def login():
     return render_template('login.html')
 
-@app.route('/doctorappointments')
-def doctorappoint():
-    return render_template('DocSchedule.html')
+@app.route('/doctorappointments/<docname>',methods=['GET', 'POST']) ##ready
+def doctorappoint(docname):
+    output = apdb.reqpatientappoints(docname)
+    if request.method == 'POST':
+        name = request.form['patientName']
+        id = request.form['patientID']
+        date = request.form['appointmentDate']
+        doctime = request.form['appointmentTime']
+        apdb.appointconf(pat=name,option=True,time=doctime)
+        # return f"Patient {id} request accepted."
+        # return render_template('DocAppoint.html',output=output)
+        output = output[1:]
+        return render_template('DocSchedule.html',output=output)
+    return render_template('DocSchedule.html',output=output)
 
 @app.route('/doctorlogin',methods=['GET', 'POST'])
 def doclogin():
@@ -59,14 +70,7 @@ def doclogin():
     
         # return render_template('login.html')
     return render_template('idex-login-final.html',error=error)
-@app.route('/verifydoclogin',methods=['POST'])
-def verifydoc():
-    username = request.form['username']
-    password = request.form['password']
-    if db.load_user(username,password):
-        return redirect(url_for('doctorappoint'))
-    else:
-        return render_template('idex-login-final.html')
+
 
 #main runtime
 if __name__ == '__main__':
