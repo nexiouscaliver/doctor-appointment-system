@@ -6,21 +6,19 @@ from werkzeug.utils import secure_filename
 import datetime
 import os
 import hashlib
-import logindbscript as db
-# import pytz
 from time import ctime
 import datetime
 import time
 import threading
 from flask_cors import CORS
 import logging
+import logindbscript as db
+import appointdbscript as apdb
 
 app = Flask(__name__,
             static_url_path='', 
             static_folder='web/static',
             template_folder='web/templates')
-
-# CORS(app)
 app.secret_key =  "DOCTOR_792739"
 #app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=360000)
 #app.config['SESSION_PERMANENT']=True
@@ -73,4 +71,5 @@ def verifydoc():
 #main runtime
 if __name__ == '__main__':
     db.init_db()
+    apdb.init_db()
     app.run(debug=True,port=8000)

@@ -7,7 +7,7 @@ def initdb():
     cur=con.cursor()
     q="CREATE TABLE IF NOT EXISTS appoint(Appno INTEGER PRIMARY KEY,Doc_Selected varchar(100),Time varchar(10))"
     cur.execute(q)
-    q="CREATE TABLE IF NOT EXISTS appointconf(Appno INTEGER PRIMARY KEY,Time varchar(10),Doctor varchar(100))"
+    q="CREATE TABLE IF NOT EXISTS appointconf(Appno INTEGER PRIMARY KEY,Time varchar(10),Pat varchar(100),Doctor varchar(100))"
     cur.execute(q)
     q="CREATE TABLE IF NOT EXISTS Appoint2(AppID INTEGER PRIMARY KEY AUTOINCREMENT,Pat_name varchar(100),Pat_dob DATE,Gender varchar(10),Pat_Contact int(11),Pat_Email varchar(100),Appoint_date DATE,Doc_Selected varchar(100),Pat_Symptoms varchar(100))"
     cur.execute(q)
@@ -40,10 +40,14 @@ def appointconf(pat:str , option:bool , time:str=""):#func to confirm pat appoin
         if(option==True):
             # T=input("Enter time=")
             #CREATE Table appointconf(Appno INTEGER PRIMARY KEY,Time varchar(10),Doctor varchar(100))
-            qu="INSERT INTO appointconf VALUES({},'{}','{}')".format(x[0],time,pat)
+            s = f"SELECT Doc_Selected FROM Appoint2 where Pat_name = '{pat}'"
+            cur.execute(s)
+            x1 = cur.fetchone()
+            qu="INSERT INTO appointconf VALUES({},'{}','{}','{}')".format(x[0],time,pat,x1[0])
             cur.execute(qu)
             con.commit()
             print(f"Appointment {x[0]} is Confirmed")
+            return True
         else:
             s = f"SELECT Doc_Selected FROM Appoint2 where Pat_name = '{pat}'"
             cur.execute(s)
@@ -53,6 +57,7 @@ def appointconf(pat:str , option:bool , time:str=""):#func to confirm pat appoin
             cur.execute(q)
             con.commit()
             print(f"Appointment {x[0]} is Rejected")
+            return True
         con.commit()
         con.close()
     
@@ -107,14 +112,17 @@ def patfinal(pat_name): #recieve if pat appoint accept or reject
     
     if(c==1):
         print("Appoint Confirm")
+        return True
     else:
         q = f"SELECT Pat_name from Reject where Pat_name='{pat_name}'"
         e = cur.execute(q)
         o = e.fetchall()
         if len(o) == 0:
             print("Appoint pending")
+            return "PENDING"
         else:
             print("Appoint Reject")
+            return False
         # print("Appoint Reject")
     con.commit()
     con.close()
@@ -128,6 +136,7 @@ def docfinal(Doc): #list all pat accept
     l=len(a)
     # print(a)
     c=0
+    final = []
     if l==0:
         print("No Appointments")
     else:
@@ -135,9 +144,11 @@ def docfinal(Doc): #list all pat accept
             if (Doc==a[i],[1]):
                 c=1
                 print(a[i],"Appoint Confirm")
+                final.append(list(a[i]))
                 break
     con.commit()
     con.close()
+    return final
     
     # if(c==1):
     #     print("Appoint Confirm")
