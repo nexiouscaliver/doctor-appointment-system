@@ -28,7 +28,7 @@ And of course it is open source with a [public repository](https://github.com/ne
 - Min. 1GB RAM
 - Min. 2GB Free space
 - Win/Linux/Unix Operating System (tested on Windows11/Linux/Rpi4)
-- Python(v3.11+)
+- [Python](https://www.python.org/)(v3.11+)
 
 ## Download
 
