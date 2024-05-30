@@ -24,7 +24,7 @@ def home():
 
 @app.route('/home')
 def select():
-    return render_template('dash.html')
+    return render_template('dash1.html')
 
 @app.route('/doctorappointments/<docname>',methods=['GET', 'POST']) ##ready
 def doctorappoint(docname):
