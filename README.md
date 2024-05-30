@@ -1,8 +1,11 @@
 
 # Doctor Appointment System
+
+This project aims to streamline the process of booking appointments with healthcare providers. Whether you're a patient looking to schedule a consultation or a healthcare professional managing appointments, this system provides a user-friendly interface to facilitate the appointment booking process efficiently.
+
 ## _Lightweight Appointment Service_
 
-A Simple yet effective doctor appointment system that can run on remote server/local machine without any special requirements and host a webserver with easy and Intractive GUI for doctors and patients to book and check appointments.
+A Simple yet effective doctor appointment system that can run on remote server/local machine without any special requirements and host a webserver with easy and Intractive GUI for doctors and patients.
 
 ## Features
 - Lightweight & Easy to deploy
