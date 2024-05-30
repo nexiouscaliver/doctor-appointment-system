@@ -47,7 +47,9 @@
     </style>
 </head>
 <body>
+    
     <div class="container">
+        <a href="{{url_for('patientdashboard')}}" class="submit-button">Back</a>
         <h2>Doctor Appointment Form</h2>
         <form  method="post">
             <div class="form-group">
@@ -94,7 +96,7 @@
                 <select id="doctor" name="doctor" required>
                     <option value="">Select Doctor</option>
                     {%for i in output%}
-                    <option value="{{i}}">{{i}}</option>
+                    <option value="{{i}}">Dr. {{i}}</option>
                     <!-- <option value="drSmith">Dr. Smith</option>
                     <option value="drJones">Dr. Jones</option>
                     <option value="drLee">Dr. Lee</option> -->

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient's Appointment Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-image: url('pictue for bacground of a website - Yahoo India Image Search results_files/vector-abstract-technology-background-hi-tech-communication-digital-background.jpg'); /* Add your background image */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: rgba(36, 58, 115, 0.8); /* Light blue with transparency */
+      color: #fff;
+      width: 100%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      margin-right: 10px;
+      width: 80px;
+      height: 80px;
+    }
+
+    .website-image {
+      width: 200px; /* Adjust the width as needed */
+      height: auto;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+    }
+
+    nav li {
+      margin-left: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #2980b9;
+    }
+
+    .button {
+      background-image: linear-gradient(to right, #3498db, #2980b9);
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-size: 1em;
+    }
+
+    .button:active {
+      transform: scale(0.95);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 30px;
+      padding: 20px;
+    }
+
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      width: 45%;
+      margin: 10px 0;
+      animation: fadeIn 1s ease-in-out;
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for transform and box-shadow */
+    }
+
+    .card:hover {
+      transform: scale(1.05); /* Slightly increase the size */
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhance the shadow */
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    .chart {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Add animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img class="logo" src="appointment.png" alt="Doctor's Appointment Logo">
+      <img class="website-image" src="name5.png" alt="Website Name Image"> <!-- Add your text image here -->
+    </div>
+    <nav>
+      <ul>
+        <li><a href="{{url_for('scheduleappoint',patname=name)}}" class="button">Schedule Appointment</a></li>
+        <!-- <li><a href="#" class="button">More</a></li> -->
+        <li><a href="{{url_for('patlogin')}}" class="button">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <div class="card">
+      <h2>Welcome Back Patient!</h2>
+      <p>Patient Name: {{name}}</p>
+    </div>
+    <p>  </p>
+    <div class="dashboard">
+      <div class="card">
+        <h2>Appointment Status</h2>
+        {%for i in zip1%}
+        <!-- <p>{{i}}</p> -->
+        <p>Patient ID : {{i[0][0]}} </p>
+        <p>Patient Name : {{i[0][1]}} </p>
+        <p>Patient Appointment Date : {{i[0][6]}} </p>
+        <p>Doctor Name : Dr. {{i[0][7]}} </p>
+        <p>Patient Symptoms : {{i[0][8]}} </p>
+        <p>Appointment Status : {{i[1]}}</p>
+        <p>______________________________________</p>
+        <p> </p>
+        {%endfor%}
+      </div>
+      <!-- <div class="card">
+        <h2>Accepted Appointments</h2>
+        <p>Details of rejected appointments...</p>
+      </div>
+      <div class="card" onclick="">
+        <h2>Rejected Appointments</h2>
+        <p>Functionality to book an appointment...</p>
+      </div> -->
+      <!-- <div class="card">
+        <h2>Medical Record</h2>
+        <p>Access to medical records...</p>
+      </div> -->
+    </div>
+    <!-- <div class="chart">
+      <h2>Appointments Overview</h2>
+      <canvas id="appointmentsChart"></canvas>
+    </div> -->
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('appointmentsChart').getContext('2d');
+    const appointmentsChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Accepted', 'Rejected'],
+        datasets: [{
+          label: 'Appointments',
+          data: [10, 3], // Replace with actual data
+          backgroundColor: [
+            'rgba(52, 152, 219, 0.7)',
+            'rgba(231, 76, 60, 0.7)'
+          ],
+          borderColor: [
+            'rgba(52, 152, 219, 1)',
+            'rgba(231, 76, 60, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

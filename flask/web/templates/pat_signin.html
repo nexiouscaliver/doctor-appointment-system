@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doctor Login</title>
+  <title>Doctor Appointment Scheduling - Login</title>
   <style>
     @keyframes fadeIn {
       0% { opacity: 0; }
@@ -34,12 +34,15 @@
 
     .photo-frame {
       width: 50%; /* Set photo frame width to half */
-      background-image: url("login.jpg"); /* Add your image path here */
-      background-size: cover; /* Ensure image fills the frame */
+      background-image: url("gg.jpg"); /* Add your image path here */
       background-position: center; /* Center image within frame */
-      border-radius: 5px 0 0 5px; /* Rounded corners for left side */
+      background-size: 85%;
+      padding: 20px;
+      border-radius: 5px 0 0 5px;
+      background-repeat: no repeat; /* Rounded corners for left side */
     }
 
+    
     .login-form {
       width: 50%; /* Set login form width to half */
       display: flex; /* Arrange form elements in a row */
@@ -124,15 +127,14 @@
   </style>
 </head>
 <body>
-    
   <div class="container">
     <div class="photo-frame"></div>
     <div class="login-form">
-      <h1>Doctor Login</h1>
+      <h1>Patient Login</h1>
       <p>Welcome back! Please log in to access your appointments.</p>
       {% if error %}  
       <p><strong>Error</strong>: {{error}}</p>  
-      {% endif %} 
+      {% endif %}
       <form id="loginForm" class="login-form" method="post">
         <div class="form-group">
           <label for="username">Username:</label>
@@ -143,10 +145,10 @@
           <input type="password" id="password" name="password" required>
         </div>
         <div class="form-group">
-          <button type="submit" >Login</button>
+          <button type="submit">Login</button>
         </div>
         <div class="link-group">
-          <a id="signup-link" href="{{url_for('docsignup')}}">Sign Up</a>
+          <a id="signup-link" href="{{url_for('patsignup')}}">Sign Up</a>
           <!-- <a id="login-link" href="#">Forgot Password?</a> -->
         </div>
       </form>

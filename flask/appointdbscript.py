@@ -95,12 +95,18 @@ def reqpatientappoints(dr): #get list of all pat appointments
     con.close()
     return final
 
-# request("drSmith")
-
-def patfinal(pat_name): #recieve if pat appoint accept or reject
+def patappoints(pat):
     con=sqlite3.connect("appointment.db")
     cur=con.cursor()
-    q=""" Select appoint2.AppID,appoint2.Pat_name,appointconf.doctor,appointconf.time from appoint2,appointconf where appoint2.Doc_Selected = appointconf.Doctor AND appoint2.AppID = appointconf.Appno AND appoint2.Pat_name='{}' """.format(pat_name)
+    q="Select * from Appoint2 where Pat_name = '{}'".format(pat)
+    e=cur.execute(q)
+    a=e.fetchall()
+    return a
+
+def patfinal(pat_name,id): #recieve if pat appoint accept or reject
+    con=sqlite3.connect("appointment.db")
+    cur=con.cursor()
+    q=""" Select appoint2.AppID,appoint2.Pat_name,appointconf.doctor,appointconf.time from appoint2,appointconf where appoint2.Doc_Selected = appointconf.Doctor AND appoint2.AppID = appointconf.Appno AND appoint2.Pat_name='{}' AND appoint2.AppID='{}' """.format(pat_name,id)
     e=cur.execute(q)
     a=e.fetchall()
     l=len(a)
@@ -112,7 +118,7 @@ def patfinal(pat_name): #recieve if pat appoint accept or reject
     
     if(c==1):
         print("Appoint Confirm")
-        return True
+        return "ACCEPT"
     else:
         q = f"SELECT Pat_name from Reject where Pat_name='{pat_name}'"
         e = cur.execute(q)
@@ -122,7 +128,7 @@ def patfinal(pat_name): #recieve if pat appoint accept or reject
             return "PENDING"
         else:
             print("Appoint Reject")
-            return False
+            return "REJECT"
         # print("Appoint Reject")
     con.commit()
     con.close()

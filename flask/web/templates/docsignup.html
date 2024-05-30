@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doctor Login</title>
+  <title>Doctor Appointment Scheduling - Sign Up</title>
   <style>
     @keyframes fadeIn {
       0% { opacity: 0; }
@@ -26,22 +26,14 @@
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Increased shadow for depth */
       display: flex; /* Make container a flexbox */
-      width: 80%; /* Set container width to 80% */
+      width: 90%; /* Set container width to 90% */
       max-width: 1200px; /* Max width for large screens */
-      height: 70%; /* Set container height */
+      height: 80%; /* Set container height */
       animation: fadeIn 1s ease-in-out; /* Apply fade-in animation */
     }
 
-    .photo-frame {
-      width: 50%; /* Set photo frame width to half */
-      background-image: url("login.jpg"); /* Add your image path here */
-      background-size: cover; /* Ensure image fills the frame */
-      background-position: center; /* Center image within frame */
-      border-radius: 5px 0 0 5px; /* Rounded corners for left side */
-    }
-
-    .login-form {
-      width: 50%; /* Set login form width to half */
+    .signup-form {
+      width: 50%; /* Set sign-up form width to half */
       display: flex; /* Arrange form elements in a row */
       flex-direction: column; /* Stack elements vertically */
       align-items: center; /* Center form horizontally within container */
@@ -121,36 +113,43 @@
     #login-link:hover, #signup-link:hover {
       color: #172b5e; /* Even darker blue on link hover */
     }
+
+    .photo-frame {
+      width: 50%; /* Set photo frame width to half */
+      background-image: url("online-doctor-appointment-appointment-scheduling-illustration-concept-flat-illustration-isolated-white-background-250134634.webp"); /* Add your image path here */
+      background-size: cover; /* Ensure image fills the frame */
+      background-position: center; /* Center image within frame */
+      border-radius: 0 5px 5px 0; /* Rounded corners for right side */
+    }
   </style>
 </head>
 <body>
-    
   <div class="container">
-    <div class="photo-frame"></div>
-    <div class="login-form">
-      <h1>Doctor Login</h1>
-      <p>Welcome back! Please log in to access your appointments.</p>
-      {% if error %}  
-      <p><strong>Error</strong>: {{error}}</p>  
-      {% endif %} 
-      <form id="loginForm" class="login-form" method="post">
+    <div class="signup-form">
+      <h1>Doctor Sign Up</h1>
+      <p>Join us! Please fill in the form to create an account.</p>
+      <form id="signupForm" class="signup-form" method="post">
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" required>
         </div>
         <div class="form-group">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
           <label for="password">Password:</label>
           <input type="password" id="password" name="password" required>
         </div>
-        <div class="form-group">
-          <button type="submit" >Login</button>
+        <div class="form-actions">
+          <button type="submit">Sign Up</button>
         </div>
         <div class="link-group">
-          <a id="signup-link" href="{{url_for('docsignup')}}">Sign Up</a>
-          <!-- <a id="login-link" href="#">Forgot Password?</a> -->
+          <a id="login-link" href="{{url_for('doclogin')}}">Already have an account? Log In</a>
         </div>
       </form>
     </div>
+    <div class="photo-frame"></div>
   </div>
 </body>
 </html>
