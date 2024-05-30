@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DASHBOARD</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Ensure Font Awesome is included -->
+    <style>
+         body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        p {
+            background-color: #0188DF;
+            padding: 60px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px; /* Adjust as needed */
+            left: 20px; /* Adjust as needed */
+            background-color: #fff;
+            color: #0188DF;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .back-button:hover {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 100px); /* Adjusted height to account for padding */
+            padding: 20px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            max-width: 800px; /* Adjust as needed */
+            gap: 50px; /* Added gap for spacing */
+        }
+
+        .col-md-6 {
+            flex: 1; /* Take up equal space */
+            text-align: center; /* Center align content */
+            max-width: 350px; /* Prevent the columns from becoming too wide */
+        }
+
+        .option-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #0188DF;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #0188DF;
+            font-size: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+            width: 100%;
+            max-width: 300px; /* Adjust the maximum width as needed */
+            text-align: center;
+        }
+
+        .option-link i {
+            margin-bottom: 10px;
+            font-size: 32px; /* Ensure icons are large */
+        }
+
+        .option-link:hover {
+            background-color: #0188DF;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!--HEADER SECTION 
+    <header>
+
+        <div class="head-file">
+
+        </div>
+    -->
+    
+    <p>
+    <a href="{{url_for('home')}}" class="back-button">
+        <i class="fa fa-arrow-left"></i> Back
+    </a>
+    </p>
+<div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="ds2.png" width="310px" height="310px">
+                <a href="{{url_for('doclogin')}}" class="option-link">
+                    <i class="fa-solid fa-user-doctor"></i> <!-- Doctor Icon with large size -->
+                    DOCTOR
+                </a>
+            </div>
+            <div class="col-md-6">
+                <img src="ds3.png" width="310px" height="310px">
+                <a href="{{url_for('patlogin')}}" class="option-link">
+                    <i class="fa-solid fa-hospital-user"></i><!-- Patient Icon with large size -->
+                    PATIENT
+                </a>
+            </div>
+        </div>
+    </div>
+   </div> 
+</body>
+</html>

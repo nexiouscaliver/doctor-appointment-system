@@ -79,9 +79,9 @@ def reqpatientappoints(dr): #get list of all pat appointments
     rejectlist=[]
     # if l2 == 0:l2=l2+1
     for i in range(0,l2):
-        rejectlist.append(b[i][1])
+        rejectlist.append(b[i][0])
     for i in range(0,l):
-        if a[i][1] in rejectlist:
+        if a[i][0] in rejectlist:
             continue
         else:
             print("Appointment of patient",a[i][0])
@@ -120,7 +120,7 @@ def patfinal(pat_name,id): #recieve if pat appoint accept or reject
         print("Appoint Confirm")
         return "ACCEPT"
     else:
-        q = f"SELECT Pat_name from Reject where Pat_name='{pat_name}'"
+        q = f"SELECT Pat_name from Reject where Pat_name='{pat_name}' AND Appno='{id}'"
         e = cur.execute(q)
         o = e.fetchall()
         if len(o) == 0:

@@ -14,28 +14,34 @@ app = Flask(__name__,
             template_folder='web/templates')
 app.secret_key =  "DOCTOR_792739"
 app.config['SECRET_KEY'] = "DOCTOR_792739"
+
 @app.route('/')
 def home():
     #return redirect(url_for('intro'))
-    logging.info("Main page accessed.")
+    # logging.info("Main page accessed.")
     
-    return("<p1> HELLO WORLD")
+    return render_template("test1.html")
 
-@app.route('/login')
-def login():
-    return render_template('login.html')
+@app.route('/home')
+def select():
+    return render_template('dash.html')
 
 @app.route('/doctorappointments/<docname>',methods=['GET', 'POST']) ##ready
 def doctorappoint(docname):
-    # output = apdb.reqpatientappoints(docname)
-    pending = apdb.reqpatientappoints(docname)
+    name=docname
+    pending = apdb.reqpatientappoints(name)
+    schedule = apdb.docfinal(name)
+    try:
+        for i in range(0,len(pending)):
+            # print(f"value I = {i}")
+            for j in range(0,len(schedule)):
+                # print(f"value J = {j}")
+                if(pending[i][0] == schedule[j][0]):
+                    # print("remove trigger")
+                    pending.remove(pending[i])
+    except IndexError:
+        pass
     output = pending
-    schedule = apdb.docfinal(docname)
-    for i in pending:
-        for j in schedule:
-            if i[0]==j[0]:
-                pending.remove(i)
-                pass
     if request.method == 'POST':
         name = request.form['patientName']
         id = request.form['patientID']
@@ -50,15 +56,40 @@ def doctorappoint(docname):
             apdb.appointconf(pat=name,option=False,id=id,time=doctime)
         # return f"Patient {id} request accepted."
         # return render_template('DocAppoint.html',output=output)
-        output = output[1:]
-        # pending = apdb.reqpatientappoints(docname)
-        # schedule = apdb.docfinal(docname)
+        # output = output[1:]
+        # pending = apdb.reqpatientappoints(name)
+        #  output = pending
+        # schedule = apdb.docfinal(name)
+        #  pending = apdb.reqpatientappoints(name)
+        #  schedule = apdb.docfinal(name)
         # for i in pending:
         #     for j in schedule:
         #         if i[0]==j[0]:
         #             pending.remove(i)
         #             pass
-        return render_template('DocSchedulefinal.html',output=output)
+        # try:
+        #     for i in range(0,len(pending)):
+        #         # print(f"value I = {i}")
+        #         for j in range(0,len(schedule)):
+        #             # print(f"value J = {j}")
+        #             if(pending[i][0] == schedule[j][0]):
+        #                 # print("remove trigger")
+        #                 pending.remove(pending[i])
+        # except IndexError:
+        #     pass
+        index=0
+        pending = output
+        print("len pending =",len(pending),len(output))
+        print(pending)
+        try:
+            for i in range(0,len(pending)):
+                if(pending[i][0]==int(id)):
+                    index=i
+        except:
+            pass
+        print(("index = "),index,("len pending = "),(len(pending))) 
+        output.remove(pending[index])         
+        return render_template('DocSchedulefinal.html',output=pending)
     return render_template('DocSchedulefinal.html',output=pending)
 
 @app.route('/scheduleappointment/<patname>',methods=['GET', 'POST'])
@@ -76,7 +107,6 @@ def scheduleappoint(patname):
         symptoms = request.form['symptoms']
         print(name,dob,gender,contact,email,docname,date,symptoms)
         apdb.appoint(name=name,dob=dob,gen=gender,cont=contact,email=email,appoint_date=date,dr=docname,sym=symptoms)
-
         return redirect(url_for('patientdashboard'))
     return render_template('patientForm.html',name=patname,output=output)
 
