@@ -42,8 +42,8 @@ def login():
 @app.route('/doctorappointments/<docname>',methods=['GET', 'POST']) ##ready
 def doctorappoint(docname):
     # output = apdb.reqpatientappoints(docname)
-    pending = apdb.reqpatientappoints(name)
-    schedule = apdb.docfinal(name)
+    pending = apdb.reqpatientappoints(docname)
+    schedule = apdb.docfinal(docname)
     for i in pending:
         for j in schedule:
             if i[0]==j[0]:
