@@ -30,17 +30,17 @@ def appoint(name:str,dob:str,gen:str,cont:int,email:str,appoint_date:str,dr:str,
     con.close()
     return True
 
-def appointconf(pat:str , option:bool , time:str=""):#func to confirm pat appoint.
+def appointconf(pat:str , option:bool,id , time:str=""):#func to confirm pat appoint.
         con=sqlite3.connect("appointment.db")
         cur=con.cursor()
-        q="Select * from Appoint2 where Pat_name = '{}'".format(pat)
+        q="Select * from Appoint2 where Pat_name = '{}' AND AppID='{}'".format(pat,id)
         e=cur.execute(q)
         x=e.fetchone()
         # op=input("Enter Y or N= ")
         if(option==True):
             # T=input("Enter time=")
             #CREATE Table appointconf(Appno INTEGER PRIMARY KEY,Time varchar(10),Doctor varchar(100))
-            s = f"SELECT Doc_Selected FROM Appoint2 where Pat_name = '{pat}'"
+            s = f"SELECT Doc_Selected FROM Appoint2 where Pat_name = '{pat}' AND AppID='{id}'"
             cur.execute(s)
             x1 = cur.fetchone()
             qu="INSERT INTO appointconf VALUES({},'{}','{}','{}')".format(x[0],time,pat,x1[0])
@@ -49,7 +49,7 @@ def appointconf(pat:str , option:bool , time:str=""):#func to confirm pat appoin
             print(f"Appointment {x[0]} is Confirmed")
             return True
         else:
-            s = f"SELECT Doc_Selected FROM Appoint2 where Pat_name = '{pat}'"
+            s = f"SELECT Doc_Selected FROM Appoint2 where Pat_name = '{pat}' AND AppID='{id}'"
             cur.execute(s)
             x1 = cur.fetchone()
             print(x)
@@ -140,18 +140,20 @@ def docfinal(Doc): #list all pat accept
     e=cur.execute(q)
     a=e.fetchall()
     l=len(a)
-    # print(a)
+    print(a)
+    print(l)
     c=0
     final = []
     if l==0:
         print("No Appointments")
     else:
         for i in range(0,l):
-            if (Doc==a[i],[1]):
+            print(i)
+            if (Doc==a[i][2]):
                 c=1
                 print(a[i],"Appoint Confirm")
                 final.append(list(a[i]))
-                break
+                # break
     con.commit()
     con.close()
     return final

@@ -3,14 +3,7 @@
 from flask import *
 from flask import request, jsonify
 from werkzeug.utils import secure_filename
-import datetime
-import os
-import hashlib
 from time import ctime
-import datetime
-import time
-import threading
-from flask_cors import CORS
 import logging
 import logindbscript as db
 import appointdbscript as apdb
@@ -20,13 +13,6 @@ app = Flask(__name__,
             static_folder='web/static',
             template_folder='web/templates')
 app.secret_key =  "DOCTOR_792739"
-#app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=360000)
-#app.config['SESSION_PERMANENT']=True
-# APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-# UPLOAD_FOLDER = os.path.join(APP_ROOT, 'down_files')
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-# TEMP_FOLDER = os.path.join(APP_ROOT, 'temp_files')
-# app.config['TEMP_FOLDER'] = TEMP_FOLDER
 app.config['SECRET_KEY'] = "DOCTOR_792739"
 @app.route('/')
 def home():
@@ -43,6 +29,7 @@ def login():
 def doctorappoint(docname):
     # output = apdb.reqpatientappoints(docname)
     pending = apdb.reqpatientappoints(docname)
+    output = pending
     schedule = apdb.docfinal(docname)
     for i in pending:
         for j in schedule:
@@ -57,14 +44,21 @@ def doctorappoint(docname):
         confirm = request.form['confirmPatient']
         if confirm=='ACCEPT':
             print('accept')
-            apdb.appointconf(pat=name,option=True,time=doctime)
+            apdb.appointconf(pat=name,option=True,id=id,time=doctime)
         elif confirm=='REJECT':
             print('reject')
-            apdb.appointconf(pat=name,option=False,time=doctime)
+            apdb.appointconf(pat=name,option=False,id=id,time=doctime)
         # return f"Patient {id} request accepted."
         # return render_template('DocAppoint.html',output=output)
-        # output = output[1:]
-        return render_template('DocSchedulefinal.html',output=pending)
+        output = output[1:]
+        # pending = apdb.reqpatientappoints(docname)
+        # schedule = apdb.docfinal(docname)
+        # for i in pending:
+        #     for j in schedule:
+        #         if i[0]==j[0]:
+        #             pending.remove(i)
+        #             pass
+        return render_template('DocSchedulefinal.html',output=output)
     return render_template('DocSchedulefinal.html',output=pending)
 
 @app.route('/scheduleappointment/<patname>',methods=['GET', 'POST'])
@@ -163,11 +157,21 @@ def doctordashboard():
     name = session['doctor_name']
     pending = apdb.reqpatientappoints(name)
     schedule = apdb.docfinal(name)
-    for i in pending:
-        for j in schedule:
-            if i[0]==j[0]:
-                pending.remove(i)
-                pass
+    # for i in pending:
+    #     for j in schedule:
+    #         if i[0]==j[0]:
+    #             pending.remove(i)
+    #             pass
+    try:
+        for i in range(0,len(pending)):
+            # print(f"value I = {i}")
+            for j in range(0,len(schedule)):
+                # print(f"value J = {j}")
+                if(pending[i][0] == schedule[j][0]):
+                    # print("remove trigger")
+                    pending.remove(pending[i])
+    except IndexError:
+        pass
     return render_template('Doctor_Dashboard.html',name=name,pending=pending,schedule=schedule)
 
 @app.route('/patientdashboard')
