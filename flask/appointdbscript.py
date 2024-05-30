@@ -9,7 +9,7 @@ def init_db():
     cur.execute(q)
     q="CREATE TABLE IF NOT EXISTS appointconf(Appno INTEGER PRIMARY KEY,Time varchar(10),Pat varchar(100),Doctor varchar(100))"
     cur.execute(q)
-    q="CREATE TABLE IF NOT EXISTS Appoint2(AppID INTEGER PRIMARY KEY AUTOINCREMENT,Pat_name varchar(100),Pat_dob DATE,Gender varchar(10),Pat_Contact int(11),Pat_Email varchar(100),Appoint_date DATE,Doc_Selected varchar(100),Pat_Symptoms varchar(100))"
+    q="CREATE TABLE IF NOT EXISTS Appoint2(AppID INTEGER PRIMARY KEY AUTOINCREMENT,Pat_name varchar(100),Pat_dob DATE,Gender varchar(10),Pat_Contact int(11),Pat_Email varchar(100),Appoint_date DATE,Doc_Selected varchar(100),Pat_Symptoms varchar(500))"
     cur.execute(q)
     q="CREATE TABLE IF NOT EXISTS Reject(Appno INTEGER PRIMARY KEY,Pat_name varchar(100),Doc_name varchar(100))"
     cur.execute(q)

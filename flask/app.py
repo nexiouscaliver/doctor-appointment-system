@@ -47,14 +47,40 @@ def doctorappoint(docname):
         id = request.form['patientID']
         date = request.form['appointmentDate']
         doctime = request.form['appointmentTime']
-        apdb.appointconf(pat=name,option=True,time=doctime)
+        confirm = request.form['confirmPatient']
+        if confirm=='ACCEPT':
+            print('accept')
+            apdb.appointconf(pat=name,option=True,time=doctime)
+        elif confirm=='REJECT':
+            print('reject')
+            apdb.appointconf(pat=name,option=False,time=doctime)
         # return f"Patient {id} request accepted."
         # return render_template('DocAppoint.html',output=output)
         output = output[1:]
-        return render_template('DocSchedule.html',output=output)
-    return render_template('DocSchedule.html',output=output)
+        return render_template('DocSchedulefinal.html',output=output)
+    return render_template('DocSchedulefinal.html',output=output)
 
-@app.route('/doctorlogin',methods=['GET', 'POST'])
+@app.route('/scheduleappointment/<patname>',methods=['GET', 'POST'])
+def scheduleappoint(patname):
+    output = db.getalldoc()
+    if request.method == 'POST':
+        name = request.form['fullName']
+        dob = request.form['dob']
+        gender = request.form['gender']
+        contact = request.form['contact']
+        email = request.form['email']
+        # address = request.form['address']
+        docname = request.form['doctor']
+        date = request.form['appointmentDate']
+        symptoms = request.form['symptoms']
+        print(name,dob,gender,contact,email,docname,date,symptoms)
+        apdb.appoint(name=name,dob=dob,gen=gender,cont=contact,email=email,appoint_date=date,dr=docname,sym=symptoms)
+
+        pass
+    return render_template('patientForm.html',name=patname,output=output)
+
+
+@app.route('/doctorlogin',methods=['GET', 'POST'])   #working
 def doclogin():
     error = None
     if request.method == 'POST':
@@ -62,12 +88,12 @@ def doclogin():
         password = request.form['password']
         # print(username,password)
         if db.load_user(str(username),str(password)):
-            name = db.getname(username)
+            name = db.getname_doc(username)
             session['doctor_name'] = name
-            return redirect(url_for('doctorappoint'))
+            return redirect(url_for('doctorappoint',docname=name))
         else:
             print("flase")
-            error = "Incorrect password !"
+            error = "Incorrect credentials ! "
             # return render_template('login.html')
     
         # return render_template('login.html')
