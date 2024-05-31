@@ -228,4 +228,4 @@ def patientdashboard():
 if __name__ == '__main__':
     db.init_db()
     apdb.init_db()
-    app.run(debug=True,port=8000)
+    app.run(debug=False,port=8000)
