@@ -58,12 +58,17 @@ Change to directory flask:
 cd doctor-appointment-system/flask
 ```
 
-Start the server :
+Run init script to initialize the database:
 ```sh
-flask run 
+python3 initapp.py
 ```
 
-Verify the deployment by navigating to your server address in
+Start the server on  127.0.0.1:8000 :
+```sh
+flask run -p 8000 -h 127.0.0.1
+```
+
+Verify the deployment by navigating to your server address(localhost) in
 your preferred browser.
 
 ```sh
