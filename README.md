@@ -60,7 +60,7 @@ cd doctor-appointment-system/flask
 
 Start the server :
 ```sh
-flask run app.py
+flask run 
 ```
 
 Verify the deployment by navigating to your server address in
